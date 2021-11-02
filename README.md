@@ -1,3 +1,7 @@
+# rCore-lab
+
+## lab1
+
 ### 引言
 
 #### 本章目的
@@ -619,6 +623,22 @@ fn print_section() {
 ##### rust传递环境变量
 
 在log里面使用了官方提供的宏 `option_env!` 这个宏用来读取环境变量中的值，比如在log中我们需要设定log的显示等级，可以在cargo编译时使用 `LOG=INFO cargo build --release` 命令来传递环境变量，也可以使用make工具 `make run LOG=INFO`来传递变量。
+
+实现makefile中默认LOG=INFO：
+
+```makefile
+...
+LOG ?= INFO
+...
+kernel:
+	@echo Platform: $(BOARD)
+	@cp src/linker-$(BOARD).ld src/linker.ld
+	@LOG=$(LOG) cargo build --release
+	@rm src/linker.ld
+...
+```
+
+
 
 
 
